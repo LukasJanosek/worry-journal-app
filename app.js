@@ -108,6 +108,13 @@ input.addEventListener('input', () => {
   charCount.textContent = `${input.value.length} / 500`;
 });
 
+input.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    form.requestSubmit();
+  }
+});
+
 filterBtns.forEach(btn => {
   btn.addEventListener('click', () => {
     filterBtns.forEach(b => b.classList.remove('active'));
