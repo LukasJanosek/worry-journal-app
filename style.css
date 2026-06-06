@@ -1,0 +1,200 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Georgia, serif;
+  background: #f0f4ff;
+  color: #1a3a6b;
+  min-height: 100vh;
+  padding: 2rem 1rem;
+}
+
+.container {
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: normal;
+  letter-spacing: 0.02em;
+  margin-bottom: 0.25rem;
+}
+
+.subtitle {
+  font-size: 0.95rem;
+  color: #5070a8;
+  margin-bottom: 1.75rem;
+}
+
+/* Form */
+form {
+  background: #fff;
+  border: 1px solid #c5d3ef;
+  border-radius: 10px;
+  padding: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+textarea {
+  width: 100%;
+  border: none;
+  outline: none;
+  resize: vertical;
+  font-family: inherit;
+  font-size: 1rem;
+  color: #1a3a6b;
+  background: transparent;
+  line-height: 1.6;
+}
+
+textarea::placeholder {
+  color: #8fa8d4;
+}
+
+.form-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.75rem;
+  border-top: 1px solid #e4ecf8;
+  padding-top: 0.75rem;
+}
+
+#char-count {
+  font-size: 0.8rem;
+  color: #8fa8d4;
+}
+
+button[type="submit"] {
+  background: #1a3a6b;
+  color: #f0f4ff;
+  border: none;
+  border-radius: 6px;
+  padding: 0.45rem 1.1rem;
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: normal;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+button[type="submit"]:hover {
+  background: #2a55a0;
+}
+
+/* Filters */
+.filters {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.filter-btn {
+  background: none;
+  border: 1px solid #c5d3ef;
+  border-radius: 20px;
+  padding: 0.3rem 0.9rem;
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: normal;
+  color: #5070a8;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.filter-btn.active {
+  background: #1a3a6b;
+  color: #f0f4ff;
+  border-color: #1a3a6b;
+}
+
+.filter-btn:not(.active):hover {
+  background: #e4ecf8;
+}
+
+/* List */
+#worry-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.worry-item {
+  background: #fff;
+  border: 1px solid #c5d3ef;
+  border-radius: 10px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.worry-item.resolved {
+  opacity: 0.55;
+}
+
+.worry-text {
+  font-size: 1rem;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.worry-item.resolved .worry-text {
+  text-decoration: line-through;
+}
+
+.worry-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.78rem;
+  color: #8fa8d4;
+}
+
+.worry-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.btn-resolve,
+.btn-delete {
+  background: none;
+  border: 1px solid #c5d3ef;
+  border-radius: 5px;
+  padding: 0.2rem 0.6rem;
+  font-family: inherit;
+  font-size: 0.78rem;
+  font-weight: normal;
+  color: #5070a8;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.btn-resolve:hover {
+  background: #e4ecf8;
+}
+
+.btn-delete:hover {
+  background: #fce8e8;
+  color: #a03030;
+  border-color: #e8c5c5;
+}
+
+/* Empty state */
+.empty-msg {
+  text-align: center;
+  color: #8fa8d4;
+  font-size: 0.9rem;
+  margin-top: 2rem;
+  display: none;
+}
+
+.empty-msg.visible {
+  display: block;
+}
