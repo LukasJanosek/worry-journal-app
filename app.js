@@ -1,7 +1,10 @@
 const STORAGE_KEY = 'worry-journal-entries';
 
-let worries = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-let currentFilter = 'all';
+let worries = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]').map(w => {
+  if (!w.status) w.status = w.resolved ? 'came_true' : 'open';
+  return w;
+});
+let currentFilter = 'open';
 
 const form = document.getElementById('worry-form');
 const input = document.getElementById('worry-input');
@@ -22,9 +25,7 @@ function formatDate(iso) {
 }
 
 function visibleWorries() {
-  if (currentFilter === 'open') return worries.filter(w => !w.resolved);
-  if (currentFilter === 'resolved') return worries.filter(w => w.resolved);
-  return worries;
+  return worries.filter(w => w.status === currentFilter);
 }
 
 function render() {
@@ -33,21 +34,30 @@ function render() {
 
   items.forEach(worry => {
     const li = document.createElement('li');
-    li.className = 'worry-item' + (worry.resolved ? ' resolved' : '');
+    li.className = 'worry-item' + (worry.status !== 'open' ? ' closed' : '');
     li.dataset.id = worry.id;
+
+    const outcomeButtons = worry.status === 'open'
+      ? `<button class="btn-outcome" data-status="came_true">Came true</button>
+         <button class="btn-outcome" data-status="didnt_happen">Didn't happen</button>`
+      : `<button class="btn-reopen">Reopen</button>`;
 
     li.innerHTML = `
       <p class="worry-text">${escapeHtml(worry.text)}</p>
       <div class="worry-meta">
         <span>${formatDate(worry.createdAt)}</span>
         <div class="worry-actions">
-          <button class="btn-resolve">${worry.resolved ? 'Reopen' : 'Resolve'}</button>
+          ${outcomeButtons}
           <button class="btn-delete">Delete</button>
         </div>
       </div>
     `;
 
-    li.querySelector('.btn-resolve').addEventListener('click', () => toggleResolve(worry.id));
+    li.querySelectorAll('.btn-outcome').forEach(btn => {
+      btn.addEventListener('click', () => setStatus(worry.id, btn.dataset.status));
+    });
+    const reopenBtn = li.querySelector('.btn-reopen');
+    if (reopenBtn) reopenBtn.addEventListener('click', () => setStatus(worry.id, 'open'));
     li.querySelector('.btn-delete').addEventListener('click', () => deleteWorry(worry.id));
 
     list.appendChild(li);
@@ -65,15 +75,15 @@ function escapeHtml(str) {
 }
 
 function addWorry(text) {
-  worries.unshift({ id: Date.now(), text, createdAt: new Date().toISOString(), resolved: false });
+  worries.unshift({ id: Date.now(), text, createdAt: new Date().toISOString(), status: 'open' });
   save();
   render();
 }
 
-function toggleResolve(id) {
+function setStatus(id, status) {
   const worry = worries.find(w => w.id === id);
   if (worry) {
-    worry.resolved = !worry.resolved;
+    worry.status = status;
     save();
     render();
   }

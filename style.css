@@ -134,7 +134,7 @@ button[type="submit"]:hover {
   gap: 0.6rem;
 }
 
-.worry-item.resolved {
+.worry-item.closed {
   opacity: 0.55;
 }
 
@@ -145,7 +145,7 @@ button[type="submit"]:hover {
   word-break: break-word;
 }
 
-.worry-item.resolved .worry-text {
+.worry-item.closed .worry-text {
   text-decoration: line-through;
 }
 
@@ -162,7 +162,8 @@ button[type="submit"]:hover {
   gap: 0.5rem;
 }
 
-.btn-resolve,
+.btn-outcome,
+.btn-reopen,
 .btn-delete {
   background: none;
   border: 1px solid #c5d3ef;
@@ -176,7 +177,8 @@ button[type="submit"]:hover {
   transition: background 0.15s;
 }
 
-.btn-resolve:hover {
+.btn-outcome:hover,
+.btn-reopen:hover {
   background: #e4ecf8;
 }
 
