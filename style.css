@@ -145,9 +145,6 @@ button[type="submit"]:hover {
   word-break: break-word;
 }
 
-.worry-item.closed .worry-text {
-  text-decoration: line-through;
-}
 
 .worry-meta {
   display: flex;
