@@ -74,9 +74,9 @@ button[type="submit"] {
   color: #f0f4ff;
   border: none;
   border-radius: 6px;
-  padding: 0.45rem 1.1rem;
+  padding: 1rem 2rem;
   font-family: inherit;
-  font-size: 0.9rem;
+  font-size: 1rem;
   font-weight: normal;
   cursor: pointer;
   transition: background 0.2s;
@@ -96,10 +96,10 @@ button[type="submit"]:hover {
 .filter-btn {
   background: none;
   border: 1px solid #c5d3ef;
-  border-radius: 20px;
-  padding: 0.3rem 0.9rem;
+  border-radius: 12px;
+  padding: 1rem;
   font-family: inherit;
-  font-size: 0.85rem;
+  font-size: 1rem;
   font-weight: normal;
   color: #5070a8;
   cursor: pointer;
@@ -146,10 +146,7 @@ button[type="submit"]:hover {
 }
 
 
-.worry-meta {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.worry-date {
   font-size: 0.78rem;
   color: #8fa8d4;
 }
@@ -164,10 +161,10 @@ button[type="submit"]:hover {
 .btn-delete {
   background: none;
   border: 1px solid #c5d3ef;
-  border-radius: 5px;
-  padding: 0.2rem 0.6rem;
+  border-radius: 6px;
+  padding: 1rem;
   font-family: inherit;
-  font-size: 0.78rem;
+  font-size: 1rem;
   font-weight: normal;
   color: #5070a8;
   cursor: pointer;

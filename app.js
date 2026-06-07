@@ -110,13 +110,11 @@ function render() {
       : `<button class="btn-reopen">Reopen</button>`;
 
     li.innerHTML = `
+      <span class="worry-date">${formatDate(worry.createdAt)}</span>
       <p class="worry-text">${escapeHtml(worry.text)}</p>
-      <div class="worry-meta">
-        <span>${formatDate(worry.createdAt)}</span>
-        <div class="worry-actions">
-          ${outcomeButtons}
-          <button class="btn-delete">Delete</button>
-        </div>
+      <div class="worry-actions">
+        ${outcomeButtons}
+        <button class="btn-delete">Delete</button>
       </div>
     `;
 
