@@ -28,7 +28,15 @@ function visibleWorries() {
   return worries.filter(w => w.status === currentFilter);
 }
 
+function updateCounts() {
+  filterBtns.forEach(btn => {
+    const count = worries.filter(w => w.status === btn.dataset.filter).length;
+    btn.textContent = btn.dataset.label + ' (' + count + ')';
+  });
+}
+
 function render() {
+  updateCounts();
   const items = visibleWorries();
   list.innerHTML = '';
 
