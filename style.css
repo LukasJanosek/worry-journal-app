@@ -96,7 +96,7 @@ button[type="submit"]:hover {
 .filter-btn {
   background: none;
   border: 1px solid #c5d3ef;
-  border-radius: 20px;
+  border-radius: 12px;
   padding: 1rem;
   font-family: inherit;
   font-size: 1rem;
@@ -161,7 +161,7 @@ button[type="submit"]:hover {
 .btn-delete {
   background: none;
   border: 1px solid #c5d3ef;
-  border-radius: 5px;
+  border-radius: 6px;
   padding: 1rem;
   font-family: inherit;
   font-size: 1rem;
