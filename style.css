@@ -74,9 +74,9 @@ button[type="submit"] {
   color: #f0f4ff;
   border: none;
   border-radius: 6px;
-  padding: 0.45rem 1.1rem;
+  padding: 1rem 2rem;
   font-family: inherit;
-  font-size: 0.9rem;
+  font-size: 1rem;
   font-weight: normal;
   cursor: pointer;
   transition: background 0.2s;
