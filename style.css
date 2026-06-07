@@ -97,9 +97,9 @@ button[type="submit"]:hover {
   background: none;
   border: 1px solid #c5d3ef;
   border-radius: 20px;
-  padding: 0.3rem 0.9rem;
+  padding: 1rem;
   font-family: inherit;
-  font-size: 0.85rem;
+  font-size: 1rem;
   font-weight: normal;
   color: #5070a8;
   cursor: pointer;
