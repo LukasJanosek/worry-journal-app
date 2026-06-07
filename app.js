@@ -6,6 +6,8 @@ let worries = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]').map(w => {
 });
 let currentFilter = 'open';
 
+const chartSection = document.getElementById('chart-section');
+const chartContainer = document.getElementById('chart-container');
 const form = document.getElementById('worry-form');
 const input = document.getElementById('worry-input');
 const charCount = document.getElementById('char-count');
@@ -28,6 +30,62 @@ function visibleWorries() {
   return worries.filter(w => w.status === currentFilter);
 }
 
+function polarToCartesian(cx, cy, r, deg) {
+  const rad = (deg - 90) * Math.PI / 180;
+  return { x: cx + r * Math.cos(rad), y: cy + r * Math.sin(rad) };
+}
+
+function pieSlicePath(cx, cy, r, startDeg, endDeg) {
+  const s = polarToCartesian(cx, cy, r, startDeg);
+  const e = polarToCartesian(cx, cy, r, endDeg);
+  const large = endDeg - startDeg > 180 ? 1 : 0;
+  return `M ${cx} ${cy} L ${s.x} ${s.y} A ${r} ${r} 0 ${large} 1 ${e.x} ${e.y} Z`;
+}
+
+function renderChart() {
+  const cameTrueCount = worries.filter(w => w.status === 'came_true').length;
+  const didntHappenCount = worries.filter(w => w.status === 'didnt_happen').length;
+  const total = cameTrueCount + didntHappenCount;
+
+  if (total === 0) {
+    chartSection.style.display = 'none';
+    return;
+  }
+
+  chartSection.style.display = 'block';
+
+  const cameTruePct = Math.round(cameTrueCount / total * 100);
+  const didntHappenPct = 100 - cameTruePct;
+  const cx = 80, cy = 80, r = 70;
+
+  let slices;
+  if (cameTrueCount === 0) {
+    slices = `<circle cx="${cx}" cy="${cy}" r="${r}" fill="#5070a8"/>`;
+  } else if (didntHappenCount === 0) {
+    slices = `<circle cx="${cx}" cy="${cy}" r="${r}" fill="#c5d3ef"/>`;
+  } else {
+    const cameTrueDeg = (cameTrueCount / total) * 360;
+    slices = `
+      <path d="${pieSlicePath(cx, cy, r, 0, cameTrueDeg)}" fill="#c5d3ef"/>
+      <path d="${pieSlicePath(cx, cy, r, cameTrueDeg, 360)}" fill="#1a3a6b"/>
+    `;
+  }
+
+  chartContainer.innerHTML = `
+    <svg width="160" height="160" viewBox="0 0 160 160">${slices}</svg>
+    <div class="chart-legend">
+      <div class="legend-item">
+        <span class="legend-dot" style="background:#1a3a6b"></span>
+        <span>Didn't happen — ${didntHappenPct}%</span>
+      </div>
+      <div class="legend-item">
+        <span class="legend-dot" style="background:#c5d3ef"></span>
+        <span>Came true — ${cameTruePct}%</span>
+      </div>
+    </div>
+  `;
+}
+
 function updateCounts() {
   filterBtns.forEach(btn => {
     const count = worries.filter(w => w.status === btn.dataset.filter).length;
@@ -36,6 +94,7 @@ function updateCounts() {
 }
 
 function render() {
+  renderChart();
   updateCounts();
   const items = visibleWorries();
   list.innerHTML = '';
